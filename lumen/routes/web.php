@@ -11,6 +11,23 @@
 |
 */
 
+$router->group([
+    'namespace' => 'Api/V1',
+    'prefix' => 'api/v1'
+], function () use ($router) {
+    $router->post('users', 'UsersController@store');
+});
+
+$router->group(['middleware' => 'auth'], function () use ($router) {
+
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('/', 'UsersController@index');
+        $router->get('/{user}', 'UsersController@show');
+        $router->put('/{user}', 'UsersController@update');
+        $router->delete('/{user}', 'UsersController@remove');
+    });
+});
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });

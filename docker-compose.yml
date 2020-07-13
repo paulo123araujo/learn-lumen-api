@@ -3,17 +3,19 @@ version: '3'
 services:
   lumen:
     restart: 'always'
-    image: php:7.4
-    command: php -S 0.0.0.0:8000 -t /app/public
+    build: ./lumen
     ports:
       - "8000:8000"
+    working_dir: /var/www
     volumes:
-      - ./lumen:/app
+      - ./lumen:/var/www
     depends_on:
       - mysql
       - composer
     links:
       - mysql
+    networks:
+      - lumen-database
 
   composer:
     restart: 'no'
@@ -31,6 +33,8 @@ services:
     environment: 
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=lumen
+    networks:
+      - lumen-database
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -40,7 +44,13 @@ services:
       - "8010:80"
     environment:
       - PMA_ARBITRARY=1
+    networks:
+      - lumen-database
 
 volumes:
   mysqldata:
     driver: local
+
+networks:
+  lumen-database:
+    driver: bridge
