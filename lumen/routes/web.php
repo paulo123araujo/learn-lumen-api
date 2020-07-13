@@ -15,7 +15,8 @@ $router->group([
     'namespace' => 'Api/V1',
     'prefix' => 'api/v1'
 ], function () use ($router) {
-    $router->post('users', 'UsersController@store');
+    $router->post('/register', 'UsersController@store');
+    $router->post('/login', 'SessionController@store');
 });
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
@@ -26,6 +27,8 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->put('/{user}', 'UsersController@update');
         $router->delete('/{user}', 'UsersController@remove');
     });
+
+    $router->delete('/logout', 'SessionController@remove');
 });
 
 $router->get('/', function () use ($router) {

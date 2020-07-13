@@ -22,7 +22,7 @@ services:
     image: composer/satis
     command: install
     volumes:
-      - ./lumen:/app
+      - ./lumen:/var/www
   
   mysql:
     image: mysql:5.6
