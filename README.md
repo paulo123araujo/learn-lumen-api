@@ -13,6 +13,14 @@ Developing an rest api with Lumen framework
 $ docker-compose up -d --build
 ```
 
+### What am I using on this project?
+
+ - Docker compose
+ - PHP 7
+ - Lumen
+ - MySQL
+ - PHPMyAdmin
+
 ### License
 
  - [MIT License](https://github.com/paulo123araujo/learn-lumen-api/blob/master/LICENSE)
