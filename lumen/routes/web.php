@@ -12,23 +12,23 @@
 */
 
 $router->group([
-    'namespace' => 'Api/V1',
+    'namespace' => 'Api\V1',
     'prefix' => 'api/v1'
 ], function () use ($router) {
-    $router->post('/register', 'UsersController@store');
-    $router->post('/login', 'SessionController@store');
-});
+    $router->post('register', 'UsersController@store');
+    $router->post('login', 'SessionController@store');
 
-$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->group(['middleware' => 'auth'], function () use ($router) {
 
-    $router->group(['prefix' => 'users'], function () use ($router) {
-        $router->get('/', 'UsersController@index');
-        $router->get('/{user}', 'UsersController@show');
-        $router->put('/{user}', 'UsersController@update');
-        $router->delete('/{user}', 'UsersController@remove');
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->get('', 'UsersController@index');
+            $router->get('{user}', 'UsersController@show');
+            $router->put('{user}', 'UsersController@update');
+            $router->delete('{user}', 'UsersController@remove');
+        });
+
+        $router->delete('logout', 'SessionController@remove');
     });
-
-    $router->delete('/logout', 'SessionController@remove');
 });
 
 $router->get('/', function () use ($router) {

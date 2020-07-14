@@ -22,7 +22,7 @@ class UsersController extends BaseController
     public function show(Request $request, User $user)
     {
         return $this->sendResponse(
-            UserResource::collection($user),
+            $user,
             'Data loaded successfully.'
         );
     }
@@ -47,7 +47,7 @@ class UsersController extends BaseController
             $user->save();
 
             return $this->sendResponse(
-                UserResource::collection($user),
+                $user,
                 'User saved successfully.',
                 201
             );
@@ -58,8 +58,8 @@ class UsersController extends BaseController
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->only(['name']));
-        return $this->sendResponse(UserResource::collection($user), 'User updated successfully.');
+        $user->update($request->only('name'));
+        return $this->sendResponse($user, 'User updated successfully.');
     }
 
     public function remove(Request $request, User $user)
