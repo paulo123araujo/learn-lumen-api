@@ -28,6 +28,14 @@ $router->group([
         });
 
         $router->delete('logout', 'SessionController@remove');
+
+        $router->group(['prefix' => 'events'], function () use ($router) {
+            $router->get('', 'EventsController@index');
+            $router->get('{event}', 'EventsController@show');
+            $router->post('', 'EventsController@store');
+            $router->put('{event}', 'EventsController@update');
+            $router->delete('{event}', 'EventsController@remove');
+        });
     });
 });
 
